@@ -1,16 +1,12 @@
 import Koa from 'koa';
 import json from 'koa-json';
-import onerror from 'koa-onerror';
 import bodyparser from 'koa-bodyparser';
 import logger from 'koa-logger';
 
-import index from './src/routes/index'
+import index from './src/routes'
 import users from './src/routes/users'
 
 const app = new Koa()
-
-// error handler
-onerror(app)
 
 // middlewares
 app.use(bodyparser({
@@ -29,8 +25,8 @@ app.use(async (ctx, next) => {
 })
 
 // routes
-app.use(index.routes())
-app.use(users.routes())
+app.use(index.routes()).use(index.allowedMethods())
+app.use(users.routes()).use(users.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
