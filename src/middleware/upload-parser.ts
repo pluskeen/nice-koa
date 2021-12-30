@@ -14,8 +14,8 @@ export default (options: formidable.Options = {}): Koa.Middleware => {
               return reject(err);
             }
 
-            Object.assign(ctx.req, {fields});
-            Object.assign(ctx.req, {files});
+            ctx.req.fields = fields;
+            ctx.req.files = files;
 
             resolve();
           });

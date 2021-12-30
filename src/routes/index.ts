@@ -1,9 +1,10 @@
 import Router from 'koa-router';
+import { DefaultContext, DefaultState } from 'koa';
 
-const router = new Router();
+const router = new Router<DefaultState, DefaultContext>();
 
 router.get('/', async (ctx) => {
-  console.log(ctx.req);
+  console.log(ctx.req.files);
   ctx.body = 'koa2 hello'
 })
 

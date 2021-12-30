@@ -1,6 +1,5 @@
 {
   "watch": ["src/**/*"],
   "ext": "ts",
-  "exec": "ts-node -r ./bin/www.ts",
-  "inspect": 9229
+  "exec": "ts-node -r ./bin/www.ts"
 }

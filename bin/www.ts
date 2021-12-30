@@ -9,7 +9,7 @@ import http from 'http';
 /**
  * Get port from environment and store in Express.
  */
-const port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || '3100');
 // app.set('port', port);
 
 /**
@@ -61,6 +61,6 @@ function onListening() {
   const address = server.address();
   const bind = typeof address === 'string'
     ? 'pipe ' + address
-    : 'port ' + address.port;
-  console.log('Listening on ' + bind);
+    : address.port;
+  console.log(`Listening on http://localhost:${bind}`)
 }
