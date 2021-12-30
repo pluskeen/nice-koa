@@ -2,9 +2,14 @@ import Koa from 'koa';
 import json from 'koa-json';
 import bodyparser from 'koa-bodyparser';
 import logger from 'koa-logger';
+import koaStatic from 'koa-static';
+
+import crossOrigin from './src/middleware/cross-origin';
+import uploadParser from './src/middleware/upload-parser';
 
 import index from './src/routes'
 import users from './src/routes/users'
+import { MAX_FILE_SIZE } from './src/config/constants';
 
 const app = new Koa()
 
@@ -12,9 +17,15 @@ const app = new Koa()
 app.use(bodyparser({
   enableTypes: ['json', 'form', 'text']
 }))
+app.use(uploadParser({
+  maxFieldsSize: MAX_FILE_SIZE
+}))
+app.use(crossOrigin({
+  origin: '*'
+}))
 app.use(json())
 app.use(logger())
-app.use(require('koa-static')(__dirname + '/public'))
+app.use(koaStatic(__dirname + '/public'))
 
 // logger
 app.use(async (ctx, next) => {
