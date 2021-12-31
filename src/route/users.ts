@@ -1,7 +1,7 @@
 import Router from 'koa-router';
 const router = new Router();
 
-router.prefix('/users')
+router.prefix('/api/users')
 
 router.get('/', function (ctx) {
   ctx.body = 'this is a users response!'

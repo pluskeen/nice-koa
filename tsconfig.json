@@ -17,7 +17,7 @@
       ]
     },
     "typeRoots": [
-      "src/types",
+      "src/type"
     ],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
