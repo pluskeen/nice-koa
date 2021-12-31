@@ -1,4 +1,4 @@
-const NODE_ENV = process.env.NODE_NODE_ENV
+const NODE_ENV = process.env.NODE_ENV
 
 /** 运行环境判断 */
 export const ENV = {
