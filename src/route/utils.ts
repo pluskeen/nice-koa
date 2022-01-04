@@ -9,14 +9,19 @@ router.prefix('/api/utils')
 
 // 上传图片
 router.post('/upload', async (ctx) => {
-  const file = ctx.req.files[FILE_UPLOAD_FIELDS]
+  if (ctx.req.files) {
+    const file = ctx.req.files[FILE_UPLOAD_FIELDS]
 
-  if (!Array.isArray(file)) {
-    const {size, originalFilename: originName, mimetype: type, filepath: filePath} = file
-    ctx.body = await saveFile({size, type, originName, filePath})
+    if (!Array.isArray(file)) {
+      const {size, originalFilename: originName, mimetype: type, filepath: filePath} = file
+      ctx.body = await saveFile({size, type, originName, filePath})
+    } else {
+      ctx.body = '暂未支持多文件解析';
+    }
   } else {
-    ctx.body = '暂未支持多文件解析';
+    ctx.body = '未获取到文件信息';
   }
+
 })
 
 export default router;

@@ -2,7 +2,8 @@ import { ISaveFile } from '../type';
 import fse from 'fs-extra';
 import path from 'path';
 import { MAX_FILE_SIZE } from '../config/constants';
-import { ErrorInfo } from '../model/error-info';
+import { ErrorInfo } from '../model/response.config';
+import { ErrorModel, SuccessModel } from '../model/res-model';
 
 const DIST_FOLDER_PATH = path.join(__dirname, '..', '..', 'uploadFiles')
 
@@ -24,7 +25,7 @@ fse.pathExists(DIST_FOLDER_PATH).then(exists => {
 async function saveFile({size, type, originName, filePath}: ISaveFile) {
   if (size > MAX_FILE_SIZE) {
     await fse.remove(filePath)
-    return {error: ErrorInfo.uploadFileSizeFailInfo}
+    return new ErrorModel(ErrorInfo.uploadFileSizeFailInfo)
   }
 
   // 移动文件
@@ -32,7 +33,7 @@ async function saveFile({size, type, originName, filePath}: ISaveFile) {
   const distFilePath = path.join(DIST_FOLDER_PATH, fileName) // 文件目的地
   await fse.move(filePath, distFilePath)
 
-  return {url: '/' + fileName}
+  return new SuccessModel({url: '/' + fileName})
 }
 
 export {

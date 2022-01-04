@@ -8,6 +8,7 @@
     "prd": "cross-env NODE_ENV=production pm2 start dist/bin/www.js"
   },
   "dependencies": {
+    "ajv": "^8.8.2",
     "date-fns": "^2.28.0",
     "formidable": "^2.0.1",
     "fs-extra": "^10.0.0",
@@ -18,7 +19,11 @@
     "koa-logger": "^3.2.1",
     "koa-router": "^10.1.1",
     "koa-static": "^5.0.0",
-    "log4js": "^6.3.0"
+    "log4js": "^6.3.0",
+    "mysql2": "^2.3.3",
+    "redis": "^4.0.1",
+    "sequelize": "^6.12.4",
+    "xss": "^1.0.10"
   },
   "devDependencies": {
     "@types/formidable": "^2.0.2",
@@ -32,7 +37,6 @@
     "@types/koa-static": "^4.0.2",
     "@types/node": "^14.17.1",
     "cross-env": "^7.0.3",
-    "eslint": "^8.5.0",
     "nodemon": "^2.0.15",
     "pm2": "^5.1.2",
     "ts-node": "^10.4.0",

@@ -12,7 +12,7 @@ import users from './src/route/users'
 import utils from './src/route/utils';
 
 import { MAX_FILE_SIZE } from './src/config/constants';
-import { writeLogError, writeLogInfo } from './src/config/log4js-config';
+import { writeLogError, writeLogInfo } from './src/config/log4js.config';
 
 import { longNewDate } from './src/util';
 import path from 'path';
