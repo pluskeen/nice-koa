@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon",
     "build": "tsc --project tsconfig.json",
+    "sync": "node dist/src/database/sync.js",
     "prd": "cross-env NODE_ENV=production pm2 start dist/bin/www.js"
   },
   "dependencies": {
