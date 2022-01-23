@@ -14,6 +14,7 @@ router.post('/upload', async (ctx) => {
 
     if (!Array.isArray(file)) {
       const {size, originalFilename: originName, mimetype: type, filepath: filePath} = file
+      console.log(file)
       ctx.body = await saveFile({size, type, originName, filePath})
     } else {
       ctx.body = '暂未支持多文件解析';

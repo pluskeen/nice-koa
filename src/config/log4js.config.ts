@@ -2,7 +2,7 @@
 
 import path from 'path';
 import log4js from 'log4js';
-import { ENV } from '../util/env';
+import { ENV } from '../utils/env';
 
 log4js.configure({
   appenders: {

@@ -5,15 +5,29 @@ import { MAX_FILE_SIZE } from '../config/constants';
 import { ErrorInfo } from '../model/response.config';
 import { ErrorModel, SuccessModel } from '../model/res-model';
 
-const DIST_FOLDER_PATH = path.join(__dirname, '..', '..', 'uploadFiles')
+const ROOT_FILE_PATH = path.join(__dirname, '..', '..', 'files')
 
 // 是否需要创建目录
-fse.pathExists(DIST_FOLDER_PATH).then(exists => {
-  if (!exists) {
-    // 创建目录
-    fse.ensureDir(DIST_FOLDER_PATH).then();
-  }
-})
+// fse.pathExists(ROOT_FILE_PATH).then(exists => {
+//   if (!exists) {
+//     // 创建目录
+//     fse.ensureDir(ROOT_FILE_PATH).then();
+//   }
+// })
+
+mkdir(ROOT_FILE_PATH).then();
+
+/**
+ * 创建存放文件的根目录
+ */
+async function mkdir(path: string) {
+  fse.pathExists(path).then(exists => {
+    if (!exists) {
+      // 创建目录
+      fse.ensureDir(path).then();
+    }
+  })
+}
 
 /**
  * 保存文件
@@ -30,7 +44,7 @@ async function saveFile({size, type, originName, filePath}: ISaveFile) {
 
   // 移动文件
   const fileName = Date.now() + '-' + originName // 防止重名
-  const distFilePath = path.join(DIST_FOLDER_PATH, fileName) // 文件目的地
+  const distFilePath = path.join(ROOT_FILE_PATH, fileName) // 文件目的地
   await fse.move(filePath, distFilePath)
 
   return new SuccessModel({url: '/' + fileName})

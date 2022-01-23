@@ -14,7 +14,7 @@ import utils from './src/route/utils';
 import { MAX_FILE_SIZE } from './src/config/constants';
 import { writeLogError, writeLogInfo } from './src/config/log4js.config';
 
-import { longNewDate } from './src/util';
+import { longNewDate } from './src/utils';
 import path from 'path';
 
 const app = new Koa()
@@ -40,7 +40,7 @@ app.use(logger(((str, args) => {
 
 app.use(koaStatic(__dirname + '/public'))
 // 上传资源文件夹
-app.use(koaStatic(path.join(__dirname, '..', 'uploadFiles')))
+app.use(koaStatic(path.join(__dirname, '..', 'files')))
 
 // 原生logger
 // app.use(async (ctx, next) => {

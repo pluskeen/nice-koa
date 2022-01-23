@@ -1,4 +1,4 @@
-import { ENV } from '../util/env';
+import { ENV } from '../utils/env';
 
 let REDIS_CONF = {
   host: '119.91.234.186',
