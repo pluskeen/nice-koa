@@ -2,13 +2,24 @@
 export interface ISaveFile {
   size: number;
   filePath: string;
-  originName: string | null;
-  type: string | null;
+  newName: string;
+  originName: string;
+  mimeType: string;
 }
 
-/** 返回模型 */
+/** 响应返回模型 */
 export interface IResponse {
   code: number;
   data?: any;
   msg: string;
+}
+
+/**
+ * MIME type pattern
+ * https://mimesniff.spec.whatwg.org/#matching-a-mime-type-pattern
+ */
+export interface ITypePattern {
+  BytePattern: number | number[];
+  PatternMask: number;
+  IgnoredLeadingBytes: number | number[] | null;
 }

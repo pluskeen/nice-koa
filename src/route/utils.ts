@@ -1,6 +1,6 @@
 import Router from 'koa-router';
 import { DefaultContext, DefaultState } from 'koa';
-import { FILE_UPLOAD_FIELDS } from '../config/constants';
+import { FILE_UPLOAD_FIELDS } from '../constant';
 import { saveFile } from '../controller/utils';
 
 const router = new Router<DefaultState, DefaultContext>();
@@ -13,9 +13,15 @@ router.post('/upload', async (ctx) => {
     const file = ctx.req.files[FILE_UPLOAD_FIELDS]
 
     if (!Array.isArray(file)) {
-      const {size, originalFilename: originName, mimetype: type, filepath: filePath} = file
-      console.log(file)
-      ctx.body = await saveFile({size, type, originName, filePath})
+      // console.log(file)
+      const {
+              size,
+              originalFilename: originName,
+              mimetype: mimeType,
+              filepath: filePath,
+              newFilename: newName
+            } = file
+      ctx.body = await saveFile({size, mimeType, originName, newName, filePath})
     } else {
       ctx.body = '暂未支持多文件解析';
     }

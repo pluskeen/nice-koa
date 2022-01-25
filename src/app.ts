@@ -4,17 +4,18 @@ import bodyparser from 'koa-bodyparser';
 import logger from 'koa-logger';
 import koaStatic from 'koa-static';
 
-import crossOrigin from './src/middleware/cross-origin';
-import uploadParser from './src/middleware/upload-parser';
+import crossOrigin from './middleware/cross-origin';
+import uploadParser from './middleware/upload-parser';
 
-import index from './src/route'
-import users from './src/route/users'
-import utils from './src/route/utils';
+import index from './route'
+import users from './route/users'
+import utils from './route/utils';
+import error from './route/error';
 
-import { MAX_FILE_SIZE } from './src/config/constants';
-import { writeLogError, writeLogInfo } from './src/config/log4js.config';
+import { MAX_FILE_SIZE } from './constant';
+import { writeLogError, writeLogInfo } from './config/log4js.config';
 
-import { longNewDate } from './src/utils';
+import { longNewDate } from './utils';
 import path from 'path';
 
 const app = new Koa()
@@ -38,7 +39,7 @@ app.use(logger(((str, args) => {
   writeLogInfo(txt);
 })))
 
-app.use(koaStatic(__dirname + '/public'))
+app.use(koaStatic(path.join(__dirname, './public')))
 // 上传资源文件夹
 app.use(koaStatic(path.join(__dirname, '..', 'files')))
 
@@ -54,6 +55,7 @@ app.use(koaStatic(path.join(__dirname, '..', 'files')))
 app.use(index.routes()).use(index.allowedMethods())
 app.use(users.routes()).use(users.allowedMethods())
 app.use(utils.routes()).use(utils.allowedMethods())
+app.use(error.routes()).use(error.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
