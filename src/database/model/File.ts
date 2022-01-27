@@ -1,8 +1,28 @@
 import { seq } from "../seq";
-import { STRING } from "../types";
+import { STRING, UNSIGNED_INT } from "../types";
+import { Optional, Model } from 'sequelize';
+
+interface IFileAttributes {
+  id: number;
+  fileId: string;
+  path: string;
+  fileName: string;
+  originName: string;
+  mimeType: string;
+  size: number;
+}
+
+export interface IFileCreationAttributes extends Optional<IFileAttributes, 'id'> {}
+
+export interface IFileInstance extends Model<IFileAttributes, IFileCreationAttributes>, IFileAttributes{}
 
 // files 表
-export const File = seq.define('file', {
+export const FileModel = seq.define<IFileInstance>('file', {
+  id: {
+    primaryKey: true,
+    type: UNSIGNED_INT,
+    autoIncrement: true,
+  },
   fileId: {
     type: STRING,
     allowNull: false,
@@ -30,7 +50,7 @@ export const File = seq.define('file', {
     comment: '文件类型'
   },
   size: {
-    type: STRING,
+    type: UNSIGNED_INT,
     allowNull: false,
     comment: '文件大小',
   }

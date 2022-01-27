@@ -1,7 +1,9 @@
 import Router from 'koa-router';
 import { DefaultContext, DefaultState } from 'koa';
 import { FILE_UPLOAD_FIELDS } from '../constant';
-import { saveFile } from '../controller/utils';
+import { getFilePath, multiFile, removeFile, saveFile } from '../controller/file';
+import { ErrorModel } from '../response/response.class';
+import { ErrorInfo } from '../response/response.config';
 
 const router = new Router<DefaultState, DefaultContext>();
 
@@ -23,12 +25,23 @@ router.post('/upload', async (ctx) => {
             } = file
       ctx.body = await saveFile({size, mimeType, originName, newName, filePath})
     } else {
-      ctx.body = '暂未支持多文件解析';
+      ctx.body = await multiFile();
     }
   } else {
-    ctx.body = '未获取到文件信息';
+    ctx.body = new ErrorModel(ErrorInfo.unableReadFileInfo);
   }
+})
 
+// 获取文件地址
+router.get('/file_path/:fileId', async (ctx) => {
+  const fileId = ctx.params.fileId
+  ctx.body = await getFilePath(fileId)
+})
+
+// 删除文件
+router.get('/delete_file/:fileId', async (ctx) => {
+  const fileId = ctx.params.fileId
+  ctx.body = await removeFile(fileId)
 })
 
 export default router;

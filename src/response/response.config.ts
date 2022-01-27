@@ -63,14 +63,24 @@ export const ErrorInfo = {
     code: 10012,
     msg: '取消关注失败'
   },
-  // 创建微博失败
-  createBlogFailInfo: {
-    code: 11001,
-    msg: '创建微博失败，请重试'
+  // 保存文件失败
+  saveFileFailInfo: {
+    code: 10013,
+    msg: '保存文件失败'
   },
-  // 删除微博失败
-  deleteBlogFailInfo: {
-    code: 11002,
-    msg: '删除微博失败，请重试'
-  }
+  // 删除文件失败
+  deleteFileFailInfo: {
+    code: 10014,
+    msg: '删除文件失败'
+  },
+  // 暂未支持多文件解析
+  saveMultiFileFailInfo: {
+    code: 10015,
+    msg: '暂未支持多文件解析'
+  },
+  // 未获取到文件信息
+  unableReadFileInfo: {
+    code: 10016,
+    msg: '未获取到文件信息'
+  },
 }
