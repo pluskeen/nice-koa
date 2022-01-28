@@ -3,6 +3,8 @@ import { DefaultContext, DefaultState } from 'koa';
 
 const router = new Router<DefaultState, DefaultContext>();
 
+router.prefix('/api')
+
 router.get('/', async (ctx) => {
   ctx.body = 'koa2 hello'
 })

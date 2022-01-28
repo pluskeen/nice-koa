@@ -2,8 +2,10 @@ import Router from 'koa-router';
 
 const router = new Router();
 
+router.prefix('/api/error')
+
 // error 路由
-router.get('/error', async (ctx) => {
+router.get('/404', async (ctx) => {
   ctx.body = 'error';
 })
 

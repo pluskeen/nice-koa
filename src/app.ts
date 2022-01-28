@@ -28,7 +28,7 @@ app.use(uploadParser({
   maxFieldsSize: MAX_FILE_SIZE
 }))
 app.use(crossOrigin({
-  origin: '*'
+  origin: '127.0.0.1'
 }))
 app.use(json())
 
