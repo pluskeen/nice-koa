@@ -1,7 +1,6 @@
-import { Sequelize } from 'sequelize';
-import { MYSQL_CONF } from '../config/db';
+import { Options, Sequelize } from 'sequelize';
+import { MYSQL_CONF } from '../config/db.config';
 import { ENV } from '../utils/env';
-import { Options } from 'sequelize/dist/lib/sequelize';
 
 const {host, user, password, database} = MYSQL_CONF
 const config: Options = {

@@ -1,36 +1,33 @@
-import {seq} from "../seq";
-import {DECIMAL, STRING} from "../types";
+import { seq } from "../seq";
+import { STRING, UNSIGNED_INT } from "../types";
+import { Model, Optional } from 'sequelize';
+
+interface IUserAttributes {
+  id: number;
+  userName: string;
+  password: string;
+}
+
+export interface IUserCreationAttributes extends Optional<IUserAttributes, 'id'> {}
+
+export interface IUserInstance extends Model<IUserAttributes, IUserCreationAttributes>, IUserAttributes {}
 
 // users 表
-export const User = seq.define('user', {
+export const UserModel = seq.define<IUserInstance>('user', {
+  id: {
+    primaryKey: true,
+    type: UNSIGNED_INT,
+    autoIncrement: true,
+  },
   userName: {
     type: STRING,
     allowNull: false,
     unique: true,
-    comment: '用户名，唯一'
+    comment: '用户名'
   },
   password: {
     type: STRING,
     allowNull: false,
     comment: '密码',
-  },
-  nickName: {
-    type: STRING,
-    allowNull: false,
-    comment: '昵称'
-  },
-  gender: {
-    type: DECIMAL,
-    allowNull: false,
-    defaultValue: 3,
-    comment: '性别（1 男，2 女，3 保密）'
-  },
-  picture: {
-    type: STRING,
-    comment: '头像 图片地址'
-  },
-  city: {
-    type: STRING,
-    comment: '城市',
   }
 })

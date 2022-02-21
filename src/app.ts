@@ -5,7 +5,7 @@ import logger from 'koa-logger';
 import koaStatic from 'koa-static';
 
 import crossOrigin from './middleware/cross-origin';
-import uploadParser from './middleware/upload-parser';
+import fileParser from './middleware/file-parser';
 
 import index from './route'
 import users from './route/users'
@@ -24,7 +24,7 @@ const app = new Koa()
 app.use(bodyparser({
   enableTypes: ['json', 'form', 'text']
 }))
-app.use(uploadParser({
+app.use(fileParser({
   maxFieldsSize: MAX_FILE_SIZE
 }))
 app.use(crossOrigin({

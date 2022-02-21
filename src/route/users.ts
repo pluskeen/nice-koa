@@ -1,15 +1,20 @@
 import Router from 'koa-router';
+import validator from '../middleware/validator';
+import { userValidate } from '../validator/user';
+import { isExist, register } from '../controller/user';
 
 const router = new Router();
 
 router.prefix('/api/users')
 
-router.get('/', function (ctx) {
-  ctx.body = 'this is a users response!'
+router.post('/register', validator(userValidate), async (ctx) => {
+  const {userName, password} = ctx.request.body
+  ctx.body = await register({userName, password})
 })
 
-router.get('/bar', function (ctx) {
-  ctx.body = 'this is a users/bar response'
+router.post('/isExist', async (ctx) => {
+  const {userName} = ctx.request.body
+  ctx.body = await isExist(userName)
 })
 
 export default router;
