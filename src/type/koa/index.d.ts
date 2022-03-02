@@ -8,7 +8,7 @@ interface ExtendReq extends IncomingMessage {
 
 declare module 'koa' {
   interface DefaultContext {
-    req: ExtendReq
+    req: ExtendReq,
   }
 
   interface DefaultState {}
