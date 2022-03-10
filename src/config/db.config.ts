@@ -1,5 +1,7 @@
 import { ENV } from '../utils/env';
 
+const SESSION_SECRET_KEY = 'Us_x3g5!4&';
+
 let REDIS_CONF = {
   host: '119.91.234.186',
   port: 6379,
@@ -33,5 +35,6 @@ if (ENV.isProd) {
 
 export {
   REDIS_CONF,
-  MYSQL_CONF
+  MYSQL_CONF,
+  SESSION_SECRET_KEY
 }

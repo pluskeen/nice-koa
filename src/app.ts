@@ -3,6 +3,8 @@ import json from 'koa-json';
 import bodyparser from 'koa-bodyparser';
 import logger from 'koa-logger';
 import koaStatic from 'koa-static';
+import session, { SessionStore } from 'koa-generic-session';
+import redisStore from 'koa-redis';
 
 import crossOrigin from './middleware/cross-origin';
 import fileParser from './middleware/file-parser';
@@ -17,6 +19,7 @@ import { writeLogError, writeLogInfo } from './config/log4js.config';
 
 import { longNewDate } from './utils';
 import path from 'path';
+import { REDIS_CONF, SESSION_SECRET_KEY } from './config/db.config';
 
 const app = new Koa()
 
@@ -42,6 +45,24 @@ app.use(logger(((str, args) => {
 app.use(koaStatic(path.join(__dirname, './public')))
 // 上传资源文件夹
 app.use(koaStatic(path.join(__dirname, '..', 'files')))
+
+// session 配置
+app.keys = [SESSION_SECRET_KEY]
+app.use(session({
+    key: 'nice.sid', // cookie name 默认是 ‘koa.sid’
+    prefix: 'nice:sess:', // redis key 的前缀，默认是 ‘koa:sess:’
+    cookie: {
+      path: '/',
+      httpOnly: true,
+      maxAge: 24 * 60 * 1000 // 单位毫秒
+    },
+    store: redisStore({
+      host: REDIS_CONF.host,
+      port: REDIS_CONF.port,
+      password: REDIS_CONF.password,
+    } as redisStore.RedisOptions) as unknown as SessionStore
+  })
+)
 
 // 原生logger
 // app.use(async (ctx, next) => {

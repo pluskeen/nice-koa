@@ -48,6 +48,8 @@ export async function login({ctx, userName, password}: ILoginParam) {
     ctx.session.userInfo = userInfo
   }
 
+  console.log(ctx.session)
+
   return new SuccessModel()
 }
 
