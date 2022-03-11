@@ -43,12 +43,17 @@ export async function login({ctx, userName, password}: ILoginParam) {
   if (!userInfo) {
     return new ErrorModel(ErrorInfo.loginFailInfo)
   }
+
+  console.log('session', ctx.session)
+
+
   // 登录成功
-  if (ctx.session.userInfo === null) {
+  if (ctx.session.userInfo == null) {
     ctx.session.userInfo = userInfo
   }
 
-  console.log(ctx.session)
+  console.log('session', ctx.session)
+
 
   return new SuccessModel()
 }

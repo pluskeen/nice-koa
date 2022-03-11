@@ -6,7 +6,7 @@ import Koa from 'koa';
 
 interface IOptions {
   /** origin `Access-Control-Allow-Origin`, default is request Origin header */
-  origin?: string | ((ctx: Koa.Context) => boolean | string) | undefined;
+  origin?: string | ((ctx: Koa.ParameterizedContext) => boolean | string) | undefined;
   /** exposeHeaders `Access-Control-Expose-Headers` */
   exposeHeaders?: string[] | undefined;
   /** maxAge `Access-Control-Max-Age` in seconds */

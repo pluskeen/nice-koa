@@ -3,7 +3,7 @@ import json from 'koa-json';
 import bodyparser from 'koa-bodyparser';
 import logger from 'koa-logger';
 import koaStatic from 'koa-static';
-import session, { SessionStore } from 'koa-generic-session';
+import session from 'koa-generic-session';
 import redisStore from 'koa-redis';
 
 import crossOrigin from './middleware/cross-origin';
@@ -49,8 +49,8 @@ app.use(koaStatic(path.join(__dirname, '..', 'files')))
 // session 配置
 app.keys = [SESSION_SECRET_KEY]
 app.use(session({
-    key: 'nice.sid', // cookie name 默认是 ‘koa.sid’
-    prefix: 'nice:sess:', // redis key 的前缀，默认是 ‘koa:sess:’
+    key: 'nice-koa', // cookie name 默认是 ‘koa.sid’
+    prefix: 'nice-koa:', // redis key 的前缀，默认是 ‘koa:sess:’
     cookie: {
       path: '/',
       httpOnly: true,
@@ -60,7 +60,7 @@ app.use(session({
       host: REDIS_CONF.host,
       port: REDIS_CONF.port,
       password: REDIS_CONF.password,
-    } as redisStore.RedisOptions) as unknown as SessionStore
+    })
   })
 )
 

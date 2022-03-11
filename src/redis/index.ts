@@ -1,8 +1,8 @@
-import redis from 'redis';
+import { createClient } from 'redis';
 import { REDIS_CONF } from '../config/db.config'
 
 /** redis客户端 */
-const redisClient = redis.createClient({
+export const redisClient = createClient({
   socket: {port: REDIS_CONF.port, host: REDIS_CONF.host,},
   password: REDIS_CONF.password
 })
@@ -10,6 +10,8 @@ const redisClient = redis.createClient({
 redisClient.on('error', err => {
   console.error('redis error', err)
 })
+
+redisClient.connect().then()
 
 /**
  * redis set

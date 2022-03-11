@@ -6,9 +6,14 @@ interface ExtendReq extends IncomingMessage {
   fields: Fields,
 }
 
+interface Session {
+  userInfo?: any,
+}
+
 declare module 'koa' {
   interface DefaultContext {
     req: ExtendReq,
+    session: Session,
   }
 
   interface DefaultState {}
