@@ -44,22 +44,17 @@ export async function login({ctx, userName, password}: ILoginParam) {
     return new ErrorModel(ErrorInfo.loginFailInfo)
   }
 
-  console.log('session', ctx.session)
-
-
   // 登录成功
   if (ctx.session.userInfo == null) {
     ctx.session.userInfo = userInfo
   }
-
-  console.log('session', ctx.session)
-
 
   return new SuccessModel()
 }
 
 /** 退出登录 */
 export async function logout(ctx: ILoginParam['ctx']) {
+  console.log(ctx)
   delete ctx.session.userInfo
   return new SuccessModel()
 }
