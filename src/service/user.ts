@@ -1,15 +1,16 @@
 import { IUserCreationAttributes, UserModel } from '../database/model';
+import { Gender } from '../enum';
 
 /** 创建用户 */
-export async function createUser({userName, password}: IUserCreationAttributes) {
-  return await UserModel.create({userName, password})
+export async function createUser({userName, gender, password}: IUserCreationAttributes) {
+  return await UserModel.create({userName, gender, password})
 }
 
 /** 删除用户 */
-export async function deleteUser(userName: string) {
+export async function deleteUser(id: IUserCreationAttributes['id']) {
   const result = await UserModel.destroy({
     where: {
-      userName
+      id
     }
   })
   // result 删除的行数
@@ -42,15 +43,10 @@ export async function getUserInfo(userName: string, password?: string) {
 }
 
 
-/**
- * 更新用户信息
- * @param newPassword 新密码
- * @param userName 用户名
- * @param password 密码
- */
+/** 更新用户信息、密码、性别 */
 export async function updateUser(
-  {newPassword}: { newPassword: string },
-  {userName, password}: IUserCreationAttributes
+  {newPassword, gender}: { newPassword?: IUserCreationAttributes['password'], gender?: Gender },
+  {id, password}: {id: IUserCreationAttributes['id'], password?: IUserCreationAttributes['password']}
 ) {
   // 拼接修改内容
   const updateData: any = {}
@@ -58,9 +54,13 @@ export async function updateUser(
     updateData.password = newPassword
   }
 
+  if (gender) {
+    updateData.gender = gender
+  }
+
   // 拼接查询条件
   const whereOpt = {
-    userName
+    id
   }
   if (password) {
     Object.assign(whereOpt, {password})
@@ -70,6 +70,6 @@ export async function updateUser(
   const result = await UserModel.update(updateData, {
     where: whereOpt
   })
-  console.log('updateUser', result)
+  // console.log('updateUser', result)
   return result[0] > 0
 }

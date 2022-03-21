@@ -1,5 +1,6 @@
 import { IncomingMessage } from 'http';
 import { Fields, Files } from 'formidable';
+import { IUserCreationAttributes } from '../../database/model';
 
 interface ExtendReq extends IncomingMessage {
   files: Files,
@@ -7,7 +8,7 @@ interface ExtendReq extends IncomingMessage {
 }
 
 interface Session {
-  userInfo?: any,
+  userInfo?: IUserCreationAttributes,
 }
 
 declare module 'koa' {

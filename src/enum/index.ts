@@ -15,3 +15,14 @@ export enum MIMEType {
   /** 视频数据 */
   Video       = 'video'
 }
+
+
+/** 性别 */
+export enum Gender {
+  /** 男 */
+  Male   = 1,
+  /** 女 */
+  Female = 2,
+  /** 保密 */
+  Secret = 3,
+}

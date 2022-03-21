@@ -14,7 +14,7 @@ import users from './route/users'
 import utils from './route/utils';
 import error from './route/error';
 
-import { MAX_FILE_SIZE } from './constant';
+import { COOKIE_KEY, MAX_FILE_SIZE, REDIS_COOKIE_KEY } from './constant';
 import { writeLogError, writeLogInfo } from './config/log4js.config';
 
 import { longNewDate } from './utils';
@@ -49,8 +49,8 @@ app.use(koaStatic(path.join(__dirname, '..', 'files')))
 // session 配置
 app.keys = [SESSION_SECRET_KEY]
 app.use(session({
-    key: 'nice-koa', // cookie name 默认是 ‘koa.sid’
-    prefix: 'nice-koa:', // redis key 的前缀，默认是 ‘koa:sess:’
+    key: COOKIE_KEY, // cookie name 默认是 ‘koa.sid’
+    prefix: REDIS_COOKIE_KEY, // redis cookie key 的前缀，默认是 ‘koa:sess:’
     cookie: {
       path: '/',
       httpOnly: true,

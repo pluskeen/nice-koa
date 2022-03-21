@@ -3,7 +3,7 @@ import { REDIS_CONF } from '../config/db.config'
 
 /** redis客户端 */
 export const redisClient = createClient({
-  socket: {port: REDIS_CONF.port, host: REDIS_CONF.host,},
+  socket: {port: REDIS_CONF.port, host: REDIS_CONF.host, connectTimeout: 60000},
   password: REDIS_CONF.password
 })
 
@@ -31,7 +31,7 @@ export function set(key: string, val: any, timeout = 60 * 60) {
  * @param key key
  */
 export function get(key: string) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve: (value: null | { [key: string]: any } | string) => void, reject) => {
     redisClient.get(key)
       .then(val => {
         if (val == null) {
