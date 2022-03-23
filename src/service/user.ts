@@ -1,13 +1,13 @@
-import { IUserCreationAttributes, UserModel } from '../database/model';
-import { Gender } from '../enum';
+import { User, UserModel } from '../database/model';
+import { ICreateUserParam } from '../type/user';
 
 /** 创建用户 */
-export async function createUser({userName, gender, password}: IUserCreationAttributes) {
-  return await UserModel.create({userName, gender, password})
+export async function createUser({userName, gender, password, language}: ICreateUserParam) {
+  return await UserModel.create({userName, gender, password, language})
 }
 
 /** 删除用户 */
-export async function deleteUser(id: IUserCreationAttributes['id']) {
+export async function deleteUser(id: User['id']) {
   const result = await UserModel.destroy({
     where: {
       id
@@ -18,7 +18,7 @@ export async function deleteUser(id: IUserCreationAttributes['id']) {
 }
 
 /** 从数据库获取用户信息 */
-export async function getUserInfo(userName: string, password?: string) {
+export async function getUserInfo(userName: User['userName'], password?: User['password']) {
   // 查询条件
   const whereOpt = {
     userName,
@@ -45,8 +45,8 @@ export async function getUserInfo(userName: string, password?: string) {
 
 /** 更新用户信息、密码、性别 */
 export async function updateUser(
-  {newPassword, gender}: { newPassword?: IUserCreationAttributes['password'], gender?: Gender },
-  {id, password}: {id: IUserCreationAttributes['id'], password?: IUserCreationAttributes['password']}
+  {newPassword, gender}: { newPassword?: User['password'], gender?: User['gender'] },
+  {id, password}: { id: User['id'], password?: User['password'] }
 ) {
   // 拼接修改内容
   const updateData: any = {}
@@ -73,3 +73,5 @@ export async function updateUser(
   // console.log('updateUser', result)
   return result[0] > 0
 }
+
+

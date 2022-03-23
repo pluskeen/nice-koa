@@ -1,12 +1,13 @@
 import { ErrorModel, SuccessModel } from '../response/response.class';
 import { createUser, deleteUser, getUserInfo, updateUser } from '../service/user';
 import { ErrorInfo } from '../response/response.config';
-import { IUserCreationAttributes } from '../database/model';
 import { doCrypto } from '../config/crypto.config';
-import { DefaultContext, DefaultState, ParameterizedContext } from 'koa';
+import { User } from '../database/model';
+import { IChangePawParam, IChangeUseParam, ICreateUserParam, ILoginParam } from '../type/user';
+import { DefaultContext } from 'koa';
 
 /** 用户名是否存在 */
-export async function isExist(userName: IUserCreationAttributes['userName']) {
+export async function isExist(userName: User['userName']) {
   const userInfo = await getUserInfo(userName)
 
   if (userInfo) {
@@ -17,7 +18,7 @@ export async function isExist(userName: IUserCreationAttributes['userName']) {
 }
 
 /** 注册用户 */
-export async function register({userName, password, gender}: IUserCreationAttributes) {
+export async function register({userName, password, gender, language}: ICreateUserParam) {
   const userInfo = await getUserInfo(userName)
 
   if (userInfo) {
@@ -26,7 +27,7 @@ export async function register({userName, password, gender}: IUserCreationAttrib
   }
 
   try {
-    const result = await createUser({userName, gender, password: doCrypto(password)})
+    const result = await createUser({userName, gender, language, password: doCrypto(password)})
     return new SuccessModel(result)
   } catch (ex) {
     console.error(ex.message, ex.stack)
@@ -51,13 +52,13 @@ export async function login({ctx, userName, password}: ILoginParam) {
 }
 
 /** 退出登录 */
-export async function logout(ctx: ICtx['ctx']) {
+export async function logout(ctx: DefaultContext) {
   delete ctx.session.userInfo
   return new SuccessModel()
 }
 
 /** 删除用户 */
-export async function deleteCurrUser(ctx: ICtx['ctx'], id: IUserCreationAttributes['id']) {
+export async function deleteCurrUser(ctx: DefaultContext, id: User['id']) {
   const result = await deleteUser(id)
   if (result) {
     // 成功后删除登陆信息，需要重新登陆
@@ -87,28 +88,4 @@ export async function changeUserInfo({gender, id}: IChangeUseParam) {
     return new SuccessModel()
   }
   return new ErrorModel(ErrorInfo.changeInfoFailInfo)
-}
-
-/** 登陆参数 */
-interface ILoginParam extends ICtx {
-  userName: string,
-  password: string
-}
-
-/** 修改密码参数 */
-interface IChangePawParam extends ICtx {
-  id: IUserCreationAttributes['id'],
-  password: IUserCreationAttributes['password'],
-  newPassword: IUserCreationAttributes['password'],
-}
-
-/** 修改用户信息参数 */
-interface IChangeUseParam {
-  id: IUserCreationAttributes['id'],
-  gender: IUserCreationAttributes['gender'],
-}
-
-/** 上下文 */
-interface ICtx {
-  ctx: ParameterizedContext<DefaultState, DefaultContext, any>
 }

@@ -1,41 +1,50 @@
-import { seq } from "../seq";
 import { DECIMAL, STRING, UNSIGNED_INT } from "../types";
-import { Model, Optional } from 'sequelize';
-import { Gender } from '../../enum';
+import { CreationOptional, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
+import { EGender, ELanguage } from '../../enum';
+import { seq } from '../seq';
 
-interface IUserAttributes {
-  id: number;
-  userName: string;
-  password: string;
-  gender: Gender;
+export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+  declare id: CreationOptional<number>;
+  declare userName: string;
+  declare password: string;
+  declare gender: EGender;
+  declare language: ELanguage;
 }
 
-export interface IUserCreationAttributes extends Optional<IUserAttributes, 'id'> {}
-
-export interface IUserInstance extends Model<IUserAttributes, IUserCreationAttributes>, IUserAttributes {}
-
 // users 表
-export const UserModel = seq.define<IUserInstance>('user', {
-  id: {
-    primaryKey: true,
-    type: UNSIGNED_INT,
-    autoIncrement: true,
+export const UserModel = User.init(
+  {
+    id: {
+      primaryKey: true,
+      type: UNSIGNED_INT,
+      autoIncrement: true,
+    },
+    userName: {
+      type: STRING,
+      allowNull: false,
+      unique: true,
+      comment: '用户名'
+    },
+    gender: {
+      type: DECIMAL,
+      allowNull: false,
+      defaultValue: EGender.Secret,
+      comment: '性别（1 男，2 女，3 保密）'
+    },
+    language: {
+      type: DECIMAL,
+      allowNull: false,
+      defaultValue: ELanguage.Zh,
+      comment: '语言偏好（1 中文，2 英文）'
+    },
+    password: {
+      type: STRING,
+      allowNull: false,
+      comment: '密码',
+    }
   },
-  userName: {
-    type: STRING,
-    allowNull: false,
-    unique: true,
-    comment: '用户名'
-  },
-  gender: {
-    type: DECIMAL,
-    allowNull: false,
-    defaultValue: Gender.Secret,
-    comment: '性别（1 男，2 女，3 保密）'
-  },
-  password: {
-    type: STRING,
-    allowNull: false,
-    comment: '密码',
+  {
+    sequelize: seq,
+    tableName: 'users'
   }
-})
+)

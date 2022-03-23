@@ -1,5 +1,5 @@
 /** MIME 类型 */
-export enum MIMEType {
+export enum EMIMEType {
   /** 二进制数据 */
   Application = 'application',
   /** 音频数据 */
@@ -16,13 +16,5 @@ export enum MIMEType {
   Video       = 'video'
 }
 
-
-/** 性别 */
-export enum Gender {
-  /** 男 */
-  Male   = 1,
-  /** 女 */
-  Female = 2,
-  /** 保密 */
-  Secret = 3,
-}
+export * from './schema';
+export * from './user';

@@ -1,9 +1,11 @@
-// 校验规则
-import { validate } from '../config/ajv.config';
+import { EGender, ELanguage } from '../enum';
 
-const SCHEMA = {
+export const USER_SCHEMA = {
   type: 'object',
   properties: {
+    id: {
+      type: 'integer'
+    },
     userName: {
       type: 'string',
       pattern: '^[a-zA-Z][a-zA-Z0-9_]+$', // 字母开头，字母数字下划线
@@ -20,14 +22,13 @@ const SCHEMA = {
       type: 'string',
       maxLength: 255,
       minLength: 3
-    }
-  }
-}
-
-/**
- * 校验用户格式
- * @param data 用户数据
- */
-export function userValidate(data = {}) {
-  return validate(SCHEMA, data)
+    },
+    gender: {
+      enum: [EGender.Male, EGender.Female, EGender.Secret]
+    },
+    language: {
+      enum: [ELanguage.Zh, ELanguage.En]
+    },
+  },
+  additionalProperties: false
 }
