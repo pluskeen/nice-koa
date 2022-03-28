@@ -50,3 +50,6 @@ Thumbs.db
 
 # files
 /files
+
+# config
+/src/config/db.config.ts
