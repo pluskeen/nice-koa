@@ -5,8 +5,6 @@ import logger from 'koa-logger';
 import koaStatic from 'koa-static';
 import session from 'koa-generic-session';
 import redisStore from 'koa-redis';
-
-import crossOrigin from './middleware/cross-origin';
 import fileParser from './middleware/file-parser';
 
 import index from './route'
@@ -30,9 +28,9 @@ app.use(bodyparser({
 app.use(fileParser({
   maxFieldsSize: MAX_FILE_SIZE
 }))
-app.use(crossOrigin({
-  origin: '127.0.0.1'
-}))
+// app.use(crossOrigin({
+//   origin: '127.0.0.1'
+// }))
 app.use(json())
 
 // koa 提供的 logger
