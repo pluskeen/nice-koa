@@ -1,4 +1,4 @@
-import { User } from '../../database/model';
+import { User } from '../../../database/model';
 import { Ctx } from 'koa';
 
 /** 创建用户参数 */

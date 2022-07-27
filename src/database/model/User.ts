@@ -1,6 +1,6 @@
 import { DATE, DECIMAL, STRING, UNSIGNED_INT } from "../types";
 import { CreationOptional, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
-import { EGender, ELanguage } from '../../enum';
+import { EGender, ELanguage } from '../../utils/enum';
 import { seq } from '../seq';
 
 export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {

@@ -4,7 +4,7 @@ import loginCheck from '../middleware/login-check'
 import { changePassword, changeUserInfo, deleteCurrUser, isExist, login, logout, register } from '../controller/user';
 import { DefaultContext, DefaultState } from 'koa';
 import { validate } from '../config/ajv.config';
-import { ESchema } from '../enum';
+import { ESchema } from '../utils/enum';
 
 const router = new Router<DefaultState, DefaultContext>();
 

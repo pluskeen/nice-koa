@@ -1,4 +1,4 @@
-declare const SESSION_SECRET_KEY = "JX92*&dx_!&";
+declare const SESSION_SECRET_KEY: string;
 declare let REDIS_CONF: {
   host: string;
   port: number;

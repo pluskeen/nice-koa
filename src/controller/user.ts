@@ -3,7 +3,7 @@ import { createUser, deleteUser, getUserInfo, updateUser } from '../service/user
 import { ErrorInfo } from '../response/response.config';
 import { doCrypto } from '../config/crypto.config';
 import { User } from '../database/model';
-import { IChangePawParam, IChangeUseParam, ICreateUserParam, ILoginParam } from '../interface/user';
+import { IChangePawParam, IChangeUseParam, ICreateUserParam, ILoginParam } from '../type/interface/user';
 import { DefaultContext } from 'koa';
 
 /** 用户名是否存在 */

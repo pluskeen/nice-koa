@@ -17,7 +17,7 @@
       ]
     },
     "typeRoots": [
-      "src/type"
+      "node_modules/@types", "src/type/koa", "src/type/koa-redis"
     ],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,

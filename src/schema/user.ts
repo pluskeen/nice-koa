@@ -1,4 +1,4 @@
-import { EGender, ELanguage } from '../enum';
+import { EGender, ELanguage } from '../utils/enum';
 
 export const USER_SCHEMA = {
   type: 'object',

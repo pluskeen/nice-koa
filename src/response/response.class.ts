@@ -1,7 +1,7 @@
 /**
  * 基础模块
  */
-import { IResponse } from '../type';
+import { IResponse } from '../type/interface/common';
 import { RES_SUCCESS_CODE } from './response.config';
 
 class BaseModel {

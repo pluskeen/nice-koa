@@ -1,6 +1,6 @@
 import Ajv from 'ajv';
 import { USER_SCHEMA } from '../schema/user';
-import { ESchema } from '../enum';
+import { ESchema } from '../utils/enum';
 
 const ajv = new Ajv({
   // allErrors: true // 输出全部错误，速度慢

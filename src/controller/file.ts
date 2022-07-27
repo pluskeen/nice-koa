@@ -1,10 +1,10 @@
-import { ISaveFile } from '../type';
+import { ISaveFile } from '../type/interface/common';
 import fse from 'fs-extra';
 import path from 'path';
 import { MAX_FILE_SIZE } from '../constant';
 import { ErrorInfo } from '../response/response.config';
 import { ErrorModel, SuccessModel } from '../response/response.class';
-import { newDate } from '../utils';
+import { newDate } from '../utils/utils';
 import { deleteFile, getFileInfo, storageFile } from '../service/file';
 import { IFileCreationAttributes } from '../database/model';
 

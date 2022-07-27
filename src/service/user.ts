@@ -1,5 +1,5 @@
 import { User, UserModel } from '../database/model';
-import { ICreateUserParam } from '../interface/user';
+import { ICreateUserParam } from '../type/interface/user';
 
 /** 创建用户 */
 export async function createUser({userName, gender, password, language}: ICreateUserParam) {

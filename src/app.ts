@@ -15,7 +15,7 @@ import error from './route/error';
 import { COOKIE_KEY, MAX_FILE_SIZE, REDIS_COOKIE_KEY } from './constant';
 import { writeLogError, writeLogInfo } from './config/log4js.config';
 
-import { longNewDate } from './utils';
+import { longNewDate } from './utils/utils';
 import path from 'path';
 import { REDIS_CONF, SESSION_SECRET_KEY } from './config/db.config';
 
